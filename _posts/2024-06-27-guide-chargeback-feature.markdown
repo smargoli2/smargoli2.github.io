@@ -53,11 +53,11 @@ Use the `SteamshipLineController` as a base for your class. [link](https://oodle
 
 Make endpoints for `GetAll()`, `Create()` and `Update()`.
 
-You will need to create a new permission type called `AddOrUpdateChargeback`. Add a line to the sql script to insert a new row for the permission into the Permissions table.
+You will need to create new permissions types called `GetChargebacks` and `AddOrUpdateChargeback`. Add code to the sql script to insert new rows for the permissions into the Permissions table.
 
-Add the new permission to the [PermissionNames.cs](https://oodle.visualstudio.com/Web%20App/_git/PurchaseOrders?path=/src/BaseModels/PermissionNames.cs&version=GBtrunk&_a=contents) class.
+Add the new permissions to the [PermissionNames.cs](https://oodle.visualstudio.com/Web%20App/_git/PurchaseOrders?path=/src/BaseModels/PermissionNames.cs&version=GBtrunk&_a=contents) class.
 
-Now you can use the permission on the controller endpoints to restrict who can call the endpoints.
+Now you can use the permissions on the controller endpoints to restrict who can call the endpoints.
 
 The create/update endpoints take a DTO from the front end and use their base class, the `BaseEntityController` to take care of creating/updating the items in the database.
 
@@ -65,10 +65,18 @@ The create/update endpoints take a DTO from the front end and use their base cla
 
 You can test this endpoint using [Postman](https://www.postman.com/). You can use it online or in the desktop app.
 Run Oodle locally.
-In order to authenticate yourself with Oodle, you need to first make a Postman request to get an XSRF token. You then pass this token along with your other requests, and this tells Oodle that you are authenticated.
-Here's a link to the request: [Get XSrf token](https://cloudy-capsule-944641.postman.co/workspace/New-Team-Workspace~5cc1fcc0-162b-4f80-96ad-89a5c2aa7976/request/23443504-37025919-32aa-4578-8fc6-11dae92162f6?action=share&source=copy-link&creator=23443504&ctx=documentation)
 
-Send the reuest. The Cookies tab of the response will have a cookie called XSRF-TOKEN. Copy the value, and you will use it to call other endpoints in Oodle.
+You will first need to grant yourself the new permissions that you created. Navigate to the settings in Oodle:
+
+![alt text](/docs/assets/images/oodle-settings.png)
+
+Go to the Roles Settings tab. You already have the Admin role, but you need to add the new permissions to the admin role. Click the 3-dot menu on the Admin user and click Permissions.
+Check off all the permissions that are not checked or that have a dash in the checkbox. This gives you all permissions in your local development database so you can work unhindered. Restart the app so that the changes take effect (users and permissions are cached so you need to restart the app for the cache to be refreshed).
+
+In order to authenticate yourself with Oodle and call an endpoint via Postman, you need to first make a Postman request to get an XSRF token. You then pass this token along with your other requests, and this tells Oodle that you are authenticated.
+Here's a link to the request: [Get Xsrf token](https://cloudy-capsule-944641.postman.co/workspace/New-Team-Workspace~5cc1fcc0-162b-4f80-96ad-89a5c2aa7976/request/23443504-37025919-32aa-4578-8fc6-11dae92162f6?action=share&source=copy-link&creator=23443504&ctx=documentation)
+
+Send the request. The Cookies tab of the response will have a cookie called XSRF-TOKEN. Copy the value, and you will use it to call other endpoints in Oodle.
 
 ![alt text](/docs/assets/images/cookie-xsrf.png)
 
