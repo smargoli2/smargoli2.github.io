@@ -69,10 +69,13 @@ In order to authenticate yourself with Oodle, you need to first make a Postman r
 Here's a link to the request: [Get XSrf token](https://cloudy-capsule-944641.postman.co/workspace/New-Team-Workspace~5cc1fcc0-162b-4f80-96ad-89a5c2aa7976/request/23443504-37025919-32aa-4578-8fc6-11dae92162f6?action=share&source=copy-link&creator=23443504&ctx=documentation)
 
 Send the reuest. The Cookies tab of the response will have a cookie called XSRF-TOKEN. Copy the value, and you will use it to call other endpoints in Oodle.
-![alt text](image.png)
+
+![alt text](/docs/assets/images/cookie-xsrf.png)
+
 Take a look at the the Put SO on Hold request. 
-![alt text](image-1.png)
-The XSRF token is passed as a header in the request. Create a new request to call the CreateChargeback endpoint, with the POST method and url of http://localhost:5000/api/Chargeback/Create.
+
+![alt text](/docs/assets/images/so-hold.png)
+The XSRF token is passed as a header in the request. Create a new request to call the CreateChargeback endpoint, using the POST method and url of `http://localhost:5000/api/Chargeback/Create`.
 The Content-Type is `application/json`. In the Body tab, select 'raw' and choose json from the dropdown.
 Enter the JSON representation of the SteamshipLineDTO. For example:
 {% highlight json %}
@@ -82,3 +85,4 @@ Enter the JSON representation of the SteamshipLineDTO. For example:
   ...
 }
 {% endhighlight %}
+If your request is successful, you will see a status of 200 OK and the response body will have the newly created chargeback with an ID.
